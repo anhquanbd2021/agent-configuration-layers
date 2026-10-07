@@ -1,0 +1,20 @@
+{
+  "name": "rules-ui",
+  "label": "rules/ui.json — applies only under src/ui/**",
+  "scope": "path",
+  "appliesTo": "src/ui/**",
+  "instructions": [
+    "CSS modules only — no global stylesheets.",
+    "State lives in props — no module-level stores."
+  ],
+  "settings": {
+    "maxFunctionLines": 30,
+    "quoteStyle": "single"
+  },
+  "permissions": {
+    "ask": ["bash npm run build*"]
+  },
+  "hooks": [
+    { "id": "a11y-smoke", "event": "before-commit", "effect": "warn", "note": "run the axe smoke check on changed components" }
+  ]
+}

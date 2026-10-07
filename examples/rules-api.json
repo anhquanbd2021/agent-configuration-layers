@@ -1,0 +1,21 @@
+{
+  "name": "rules-api",
+  "label": "rules/api.json — applies only under src/api/**",
+  "scope": "path",
+  "appliesTo": "src/api/**",
+  "instructions": [
+    "Handlers are pure functions — no middleware signatures.",
+    "Every handler needs a node:test file beside it."
+  ],
+  "settings": {
+    "testRunner": "node:test",
+    "maxFunctionLines": 40
+  },
+  "permissions": {
+    "allow": ["read .env*"]
+  },
+  "hooks": [
+    { "id": "validate-api-schema", "event": "before-commit", "effect": "block", "note": "openapi spec must stay in sync with handlers" }
+  ],
+  "note": "The allow on read .env* tries to carve out config access for handlers — the global deny still wins. That is the point of the lab."
+}

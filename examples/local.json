@@ -1,0 +1,16 @@
+{
+  "name": "dev-local",
+  "label": ".agent/settings.local.json — gitignored, just you",
+  "scope": "local",
+  "appliesTo": "**",
+  "instructions": [
+    "Show the shell command before running anything destructive."
+  ],
+  "settings": {
+    "quoteStyle": "double"
+  },
+  "permissions": {
+    "allow": ["bash git fetch *"]
+  },
+  "hooks": []
+}

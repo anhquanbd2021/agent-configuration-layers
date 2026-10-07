@@ -1,0 +1,20 @@
+{
+  "name": "skill-pr-review",
+  "label": "skills/pr-review — loaded only when invoked",
+  "scope": "invoked",
+  "invoke": "pr-review",
+  "appliesTo": "**",
+  "instructions": [
+    "Review like a senior: correctness first, then security, then style.",
+    "Cite file:line for every finding."
+  ],
+  "settings": {
+    "diffStyle": "unified"
+  },
+  "permissions": {
+    "allow": ["bash git diff *", "bash git log *"]
+  },
+  "hooks": [
+    { "id": "no-secrets-in-findings", "event": "before-output", "effect": "block", "note": "never echo a token value in a review comment" }
+  ]
+}

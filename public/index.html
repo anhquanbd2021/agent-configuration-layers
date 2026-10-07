@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark light">
+  <meta name="description" content="Assemble a coding agent's effective context from layered config sources — watch precedence, deny-wins permissions, and additive hooks resolve for any target file.">
+  <title>Context Assembly Lab — what the agent actually sees</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="/styles.css">
+<!-- pb-shell --><link rel="stylesheet" href="./pb-shell.css"><!-- pb-shell --><!-- pb-back --><link rel="stylesheet" href="./pb-back.css"><!-- pb-back --></head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<main id="main">
+  <nav class="nav" aria-label="Primary"><a aria-current="page" href="/">Lab</a><a href="/guide.html">Guide</a><a href="https://github.com/anhquanbd2021/agent-configuration-layers">Source</a></nav>
+  <header class="hero">
+    <div class="hero-copy"><p class="eyebrow">Context Assembly Lab · agent configuration</p><h1>Same repo. Different file. Different context.</h1><p class="lede">An agent never sees your config files — it sees the <em>merged result</em> of every layer that applies to the file it is touching. Pick a target, toggle layers on and off, and watch instructions, settings, permissions, and hooks resolve in precedence order.</p></div>
+    <p class="warning"><strong>Safe educational demo.</strong> Nothing is executed and no model is queried — the lab replays the merge logic a real harness performs, with fixtures you can read in <code>examples/</code>.</p>
+  </header>
+
+  <section class="workspace workspace-a" aria-label="Assembly controls">
+    <section class="panel controls" aria-labelledby="controls-title">
+      <div class="panel-head"><p class="eyebrow">Controls</p><h2 id="controls-title">Target file &amp; layers</h2></div>
+      <label for="target">Target file<select id="target"></select></label>
+      <p id="target-note" class="muted"></p>
+      <fieldset class="layer-toggles">
+        <legend>Config layers</legend>
+        <div id="toggles"></div>
+      </fieldset>
+      <p class="muted">Uncheck a layer to drop it from the merge. The invoked layer (the <code>pr-review</code> skill) only contributes when invoked — its checkbox is the invocation.</p>
+      <div class="comparison table-wrap" role="group" aria-label="Layer summary">
+        <table>
+          <thead><tr><th>layer</th><th>scope</th><th>status</th></tr></thead>
+          <tbody id="layer-body"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="panel" aria-labelledby="stack-title">
+      <div class="section-heading"><div><p class="eyebrow">Instruction stack</p><h2 id="stack-title">What the model reads, in order</h2></div><span id="status" class="badge" role="status" aria-live="polite">Ready</span></div>
+      <ol id="blocks" class="stream" aria-label="Assembled instruction blocks" tabindex="0"></ol>
+    </section>
+  </section>
+
+  <section class="workspace workspace-b" aria-label="Resolved configuration">
+    <section class="panel" aria-labelledby="settings-title">
+      <div class="panel-head"><p class="eyebrow">Settings</p><h2 id="settings-title">Most specific wins — and you can see it lose</h2></div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>key</th><th>value</th><th>winner</th><th>overridden</th></tr></thead>
+        <tbody id="settings-body"></tbody>
+      </table></div>
+      <p class="muted">Change the target file and watch winners change — <code>testRunner</code> flips between <code>vitest</code> and <code>node:test</code> depending on which path rule applies.</p>
+    </section>
+    <section class="panel" aria-labelledby="perms-title">
+      <div class="panel-head"><p class="eyebrow">Permissions &amp; hooks</p><h2 id="perms-title">Deny always wins; hooks only add</h2></div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>rule</th><th>verdict</th><th>decided by</th></tr></thead>
+        <tbody id="perms-body"></tbody>
+      </table></div>
+      <h3>Active hooks</h3>
+      <ul id="hooks" class="hook-list"></ul>
+      <p class="muted"><code>read .env*</code> is <em>allowed</em> by the api path rule and <em>denied</em> by the global layer — the denied verdict stands. A narrower file can never re-allow what a broader file forbids.</p>
+    </section>
+  </section>
+
+  <footer class="site-footer"><p class="muted"><a href="/guide.html">Read the guide — how the merge rules work</a> · <a href="https://github.com/anhquanbd2021/agent-configuration-layers">Inspect source and tests</a></p></footer>
+</main>
+<script type="module" src="/app.js"></script>
+<!-- pb-shell --><a class="pb-shell" href="https://github.com/anhquanbd2021/agent-configuration-layers" title="agent-configuration-layers — an Article Playbook demo (view source)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="2" y="2" width="9" height="9" rx="2" fill="#2dd4bf"/><rect x="13" y="2" width="9" height="9" rx="2" fill="#2dd4bf" opacity=".45"/><rect x="2" y="13" width="9" height="9" rx="2" fill="#2dd4bf" opacity=".45"/><rect x="13" y="13" width="9" height="9" rx="4.5" fill="#2dd4bf"/></svg><b>agent-configuration-layers</b><i>DEMO</i></a><!-- pb-shell --><!-- pb-back --><a class="pb-back" id="pb-back" href="https://github.com/anhquanbd2021/agent-configuration-layers" title="Back to the article — agent-configuration-layers">← Article <i>PLAYBOOK</i></a><script>(function(){var a=document.getElementById('pb-back');if(!a)return;var h=location.hostname;if(/^(localhost|127\.0\.0\.1|192\.168\.|10\.|172\.(1[6-9]|2[0-9]|3[01])\.)/.test(h)){a.href='//'+h+':'+(/^(localhost|127\.0\.0\.1)$/.test(h)?'1234':'30082')+'/microsites/article.html?slug=agent-configuration-layers';}})();</script><!-- pb-back --></body>
+</html>

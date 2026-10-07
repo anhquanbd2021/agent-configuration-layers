@@ -1,0 +1,23 @@
+{
+  "name": "user-global",
+  "label": "~/.agent/config — applies to every repo you touch",
+  "scope": "global",
+  "appliesTo": "**",
+  "instructions": [
+    "Prefer small, reviewable diffs over rewrites.",
+    "Explain non-obvious decisions in one sentence, not paragraphs."
+  ],
+  "settings": {
+    "indent": 2,
+    "quoteStyle": "single",
+    "commitStyle": "conventional"
+  },
+  "permissions": {
+    "allow": ["read **", "bash npm test*"],
+    "ask": ["bash git push *"],
+    "deny": ["read .env*", "bash curl * | sh"]
+  },
+  "hooks": [
+    { "id": "block-secret-output", "event": "before-output", "effect": "block", "note": "redact tokens and keys before they reach the transcript" }
+  ]
+}

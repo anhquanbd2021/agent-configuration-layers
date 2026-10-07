@@ -1,0 +1,24 @@
+{
+  "name": "project-shared",
+  "label": "AGENTS.md + .agent/settings.json — committed with the repo",
+  "scope": "project",
+  "appliesTo": "**",
+  "instructions": [
+    "Stack: Node 20, ES modules, zero runtime dependencies.",
+    "Tests run with Vitest — npm test.",
+    "HTTP handlers live in src/api, UI components in src/ui."
+  ],
+  "settings": {
+    "indent": 4,
+    "testRunner": "vitest",
+    "maxFunctionLines": 50
+  },
+  "permissions": {
+    "allow": ["bash npm run *"],
+    "ask": ["bash git commit *"],
+    "deny": ["bash git push --force*", "write infra/prod/**"]
+  },
+  "hooks": [
+    { "id": "typecheck-after-edit", "event": "after-write", "effect": "validate", "note": "npm run typecheck must pass after every edit" }
+  ]
+}

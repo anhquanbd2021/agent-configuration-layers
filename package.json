@@ -1,0 +1,16 @@
+{
+  "name": "agent-configuration-layers-demo",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Context Assembly Lab — assemble a coding agent's effective context from layered config sources and watch precedence, deny-wins, and additive hooks resolve.",
+  "scripts": {
+    "start": "node app/server.js",
+    "scan": "node scripts/report.mjs",
+    "test": "node --test \"test/*.test.mjs\"",
+    "check": "npm test && npm run scan"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
